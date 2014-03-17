@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+</head>
+<body>
+
+<!--
+Ok. I want to make a text based game in the browser.
+You could do that by linking regular static pages together, but where's the fun in that.
+We want to emulate that semi-terminal experience with monospaced fonts, command parsers and stuff.
+
+So first off I need a place to output text and somewhere to input it.
+-->
+
+<div class="terminal-window"></div>
+<input class="command-input" type="text"/>
+
+<!--
+Booyaah! We're hackers!
+-->
+
+<script>
+/*
+So I want to build some sort of text based world; made of rooms with descriptions which I can walk around in.
+So I think:
+*/
+
+function Room(opts) {
+	this.description = opts.desc;
+}
+
+/*
+Supers! Now I can create funky rooms.
+*/
+
+var livingroom = new Room({
+	desc: "Really nice livingroom. There's a tv and all!"
+});
+
+var bathroom = new Room({
+	desc: "You're in a bathroom. Some people come here to poo."
+});
+
+/*
+Then we need to be able to link these together too. 
+Something like roomA.addExit('exitName', roomB);
+*/
+
+function Room(opts) {
+	this.description = opts.desc;
+	this.exits = {};
+}
+
+Room.prototype.addExit = function(exitName, room) {
+	this.exits[exitName] = room;		
+};
+
+var livingroom = new Room({
+	desc: "Really nice livingroom. There's a tv and all!"
+});
+
+var bathroom = new Room({
+	desc: "You're in a bathroom. Some people come here to poo."
+});
+
+livingroom.addExit("bathroom", bathroom);
+bathroom.addExit("out", livingroom);
+
+/*
+Having the bathroom next to the livingroom isn't completely wise but this is a game, we can do anything!
+
+To track in which room we are; let's say there's a var called currentRoom.
+*/
+
+var currentRoom = livingroom;
+
+/*
+Ok. Think we have enough data to make this playable somehow.
+
+We want a 'look' command which displays the room description and its exits.
+In addition we want each exit name in the room to be a command which takes us into that room.
+
+We want to take the user's commands from the '.command-input' element, parse them and react to that.
+
+I guess we can represent a command as a function.
+On enter keypress we should execute some sort of command parser which returns the command function.
+
+To output stuff into our "terminal window" we'll create a "print" function.
+*/
+
+var $terminalEl = $('.terminal-window');
+var $inputEl = $('.command-input');
+
+function print(msg) {
+	$terminalEl.append('<div class="msg">' + msg + '</msg>');
+}
+
+function parseCommand(unparsedInput) {
+	if (unparsedInput === 'look') {
+		// The "look" command
+		return function() {
+			var msg = 
+				'<div class="desc">' + currentRoom.description + '<div>' + 
+				'<div>Exits: <span class="exits">' + currentRoom.exitNames().join(', ') + '</span></div>';
+			print(msg);
+		}
+	}
+
+	if (currentRoom.getExit(unparsedInput) !== null) {
+		// The move command
+		return function() {
+			print('You walk into the "' + unparsedInput + '" exit');
+			currentRoom = currentRoom.getExit(unparsedInput);
+		}
+	}
+
+	// The "unknown command"-command
+	return function() {
+		print('Unknown command: ' + unparsedInput);
+	}
+}
+
+function init() {
+	console.log('Initing js code');
+	$inputEl.focus();
+
+	$inputEl.keypress(function(e) {
+
+		if (e.keyCode !== 13) {
+			return true;
+		}
+
+		var unparsedInput = $inputEl.val();
+
+		console.log('Parsing: ' + unparsedInput);
+
+		var command = parseCommand(unparsedInput);
+
+		command();
+		
+		$inputEl.val('');
+
+		return false;
+	});
+}
+
+$(document).ready(init);
+
+/*
+Won't work yet since we're missing exitNames() and getExit(exitName). 
+Uno momento.
+*/
+
+Room.prototype.exitNames = function() {
+	return $.map(this.exits, function(value, key) { 
+		return key; 
+	});	
+};
+
+Room.prototype.getExit = function(exitName) {
+	if (!this.exits[exitName]) {
+		return null;
+	}
+
+	return this.exits[exitName];
+}
+</script>
+
+<p class="help">Here's some help to get started, try typing 'look' and pressing enter.</p>
+
+<!-- 
+Let's add some styles to make it a bit friendlier to your eyes
+and more terminal-like.	
+-->
+<style>
+.terminal-window {
+	width: 600px;
+	height: 400px;
+	overflow-y: scroll;
+	font-family: monospace;
+	background: black;
+	color: #cfc;
+	padding: 5px;
+}
+
+.exits {
+	color: white;
+	font-weight: bold;
+}
+
+.command-input {
+	width: 605px;
+}
+
+.msg {
+	padding-bottom: 10px;
+}
+</style>
+</html>
+</body>
