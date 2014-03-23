@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Version 4</title>
+	<style>
+		.terminal-window {
+			width: 600px;
+			height: 400px;
+			overflow-y: scroll;
+			font-family: monospace;
+			background: black;
+			color: #cfc;
+			padding: 5px;
+		}
+
+		.exits {
+			color: white;
+			font-weight: bold;
+		}
+
+		.command-input {
+			width: 605px;
+		}
+
+		.msg {
+			padding-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="terminal-window"></div>
+	<input class="command-input" type="text"/>
+
+	<!-- Third party party deps -->
+	<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="../bower_components/lodash/dist/lodash.js"></script>
+
+	<!-- Our code -->
+	<script type="text/javascript" src="commands/look.js"></script>
+	<script type="text/javascript" src="commands/lookAt.js"></script>
+	<script type="text/javascript" src="commands/move.js"></script>
+	<script type="text/javascript" src="commands/action.js"></script>
+	<script type="text/javascript" src="commands/unknownCmd.js"></script>
+
+	<script type="text/javascript" src="Room.js"></script>
+	<script type="text/javascript" src="buildInput.js"></script>
+	<script type="text/javascript" src="currentRoom.js"></script>
+	<script type="text/javascript" src="parse.js"></script>
+	<script type="text/javascript" src="createWorld.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+
+
+</body>
+</html>
