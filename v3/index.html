@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Version 3</title>
+	<style>
+		.terminal-window {
+			width: 600px;
+			height: 400px;
+			overflow-y: scroll;
+			font-family: monospace;
+			background: black;
+			color: #cfc;
+			padding: 5px;
+		}
+
+		.exits {
+			color: white;
+			font-weight: bold;
+		}
+
+		.command-input {
+			width: 605px;
+		}
+
+		.msg {
+			padding-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="terminal-window"></div>
+	<input class="command-input" type="text"/>
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="bower_components/lodash/dist/lodash.js"></script>
+
+	<script type="text/javascript" src="Room.js"></script>
+	<script type="text/javascript" src="CommandParser.js"></script>
+	<script type="text/javascript" src="createWorld.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "textgame",
+  "version": "0.0.1",
+  "homepage": "https://github.com/kallebertell/textgame",
+  "authors": [
+    "kalle <carlpetter.bertell@gmail.com>"
+  ],
+  "description": "TEXT GAME!",
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "2.4.1",
+    "jquery": "~2.1.0"
+  },
+  "devDependencies": {
+    "jasmine": "2.0.0"
+  }
+}
