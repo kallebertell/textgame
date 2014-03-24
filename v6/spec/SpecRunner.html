@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jasmine Spec Runner</title>
+  <link rel="stylesheet" href="../bower_components/jasmine/lib/jasmine-core/jasmine.css">
+</head>
+<body>
+  <div id="sandbox" style="overflow:hidden; height:1px;"></div>
+
+  <!-- Jasmine -->
+  <script src="../bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+  <script src="../bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+  <script src="../bower_components/jasmine/lib/jasmine-core/boot.js"></script>
+
+  <!-- Third party deps -->
+  <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="../bower_components/lodash/dist/lodash.js"></script>
+
+  <!-- Our code -->
+  <script type="text/javascript" src="../src/tg/aliases.js"></script>
+
+  <script type="text/javascript" src="../src/tg/commands/look.js"></script>
+  <script type="text/javascript" src="../src/tg/commands/lookAt.js"></script>
+  <script type="text/javascript" src="../src/tg/commands/go.js"></script>
+  <script type="text/javascript" src="../src/tg/commands/action.js"></script>
+  <script type="text/javascript" src="../src/tg/commands/alias.js"></script>
+  <script type="text/javascript" src="../src/tg/commands/help.js"></script>
+  <script type="text/javascript" src="../src/tg/commands/unknownCmd.js"></script>
+
+  <script type="text/javascript" src="../src/tg/Room.js"></script>
+  <script type="text/javascript" src="../src/tg/World.js"></script>
+  <script type="text/javascript" src="../src/tg/buildInput.js"></script>
+  <script type="text/javascript" src="../src/tg/currentRoom.js"></script>
+  <script type="text/javascript" src="../src/tg/parse.js"></script>
+
+  <!-- Specs -->
+  <script src="buildInputSpec.js"></script>
+  <script src="RoomSpec.js"></script>
+  <script src="commandsSpec.js"></script>
+
+</body>
+</html>
